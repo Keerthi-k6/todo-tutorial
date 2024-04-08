@@ -16,11 +16,11 @@ export const fetchTasks = async () => {
 }
 
 export const createTask = async ({ name, completed }) => {
-    const id = crypto.randomUUID()
+    const uuid = crypto.randomUUID()
     const command = new PutCommand({
         TableName: "Tasks",
         Item: {
-            id: "",
+            id: uuid,
             name,
             completed
         }
@@ -46,11 +46,11 @@ export const updateTasks = async ({ id, name, completed }) => {
     return response
 }
 
-export const deleteTasks = async ({ id }) => {
+export const deleteTasks = async ( id ) => {
     const command = new DeleteCommand({
         TableName: "Tasks",
         Key: {
-            id
+            id: id
         }
     })
     const response = await docClient.send(command)
